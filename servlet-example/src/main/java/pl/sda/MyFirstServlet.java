@@ -1,4 +1,4 @@
-package sda;
+package pl.sda;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

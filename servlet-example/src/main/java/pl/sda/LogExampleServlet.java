@@ -1,4 +1,4 @@
-package sda;
+package pl.sda;
 
 import org.apache.log4j.Logger;
 
