@@ -20,9 +20,9 @@
     <button type="submit" class="btn btn-primary">Zaloguj się!</button>
 </form>
 
-<%--<form method="GET" action="/rejestracja">--%>
-<%--    <button type="submit" class="btn btn-primary">Zarejestruj się!</button>--%>
-<%--</form>--%>
+<form method="GET" action="/rejestracja">
+    <button type="submit" class="btn btn-primary">Zarejestruj się!</button>
+</form>
 
 <script src="webjars/jquery/3.4.1/jquery.min.js"/>
 <script src="webjars/bootstrap/3.4.0/js/bootstrap.min.js"/>

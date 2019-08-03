@@ -18,7 +18,7 @@ public class GoToBucketController extends HttpServlet {
     BucketService bucketService = new BucketServiceImpl();
     BillService billService = new BillServiceImpl();
     ProductService productService = new ProductServiceImpl();
-//    AuthenticationService authenticationService = new AuthenticationServiceImpl();
+    AuthenticationService authenticationService = new AuthenticationServiceImpl();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
@@ -30,7 +30,7 @@ public class GoToBucketController extends HttpServlet {
                 .map(i -> productService.getProduct(i)).collect(Collectors.toList());
         req.setAttribute("products", products);
         req.setAttribute("toPay", billService.getFinalBill(products));
-//        req.setAttribute("isLogin", authenticationService.isAuthenticated(req));
+        req.setAttribute("isLogin", authenticationService.isAuthenticated(req));
         req.getRequestDispatcher("/WEB-INF/view/bucket.jsp").forward(req, resp);
     }
 }

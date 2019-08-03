@@ -17,7 +17,8 @@ public class BucketServiceImpl implements BucketService {
     }
 
     public List<Long> getProductsId(HttpServletRequest request){
-        return (List<Long>) request.getSession().getAttribute("bucket");
+        List<Long> productsId = (List<Long>) request.getSession().getAttribute("bucket");
+        return productsId == null ? new ArrayList<>() : productsId;
     }
 
 
