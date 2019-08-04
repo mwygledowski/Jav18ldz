@@ -4,10 +4,7 @@ import pl.sda.model.Category;
 import pl.sda.model.ToDoModel;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ToDoRepository {
 
@@ -21,9 +18,19 @@ public class ToDoRepository {
         toDoMap.get(login).add(toDoModel);
     }
 
-    public void removeFromToDoList(String login, ToDoModel toDoModel) {
+    public void markAsDone (String login, long id){
         List<ToDoModel> toDoModelList = toDoMap.get(login);
-        toDoModelList.remove(toDoModel);
+        Optional<ToDoModel> model = toDoModelList.stream().filter(x -> x.getId() == id).findFirst();
+        if(model.isPresent()){
+            model.get().setDone(true);
+        }
+
+    }
+
+    public void removeFromToDoList(String login, long id) {
+        List<ToDoModel> toDoModelList = toDoMap.get(login);
+        ToDoModel model = toDoModelList.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+        toDoModelList.remove(model);
     }
 
     private static Map<String, List<ToDoModel>> loadMock() {
@@ -32,13 +39,15 @@ public class ToDoRepository {
                 Category.RELAX,
                 LocalDateTime.now(),
                 LocalDateTime.now(),
-                "dokladnie");
+                "dokladnie",
+                false);
         ToDoModel toDoModel2 = new ToDoModel(SequenceGenerator.getNextValue(),
                 "Zrobic liste zakupow",
                 Category.HOME,
                 LocalDateTime.now(),
                 LocalDateTime.now(),
-                "na jutro");
+                "na jutro",
+                false);
 
         List<ToDoModel> toDoModelList = new ArrayList<>();
         toDoModelList.add(toDoModel1);

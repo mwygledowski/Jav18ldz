@@ -2,9 +2,11 @@ package pl.sda.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 @Getter
+@Setter
 @AllArgsConstructor
 public class ToDoModel {
 
@@ -14,5 +16,6 @@ public class ToDoModel {
     private  LocalDateTime creationDate;
     private  LocalDateTime deadlineDate;
     private  String description;
+    private boolean done;
 
 }

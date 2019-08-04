@@ -20,7 +20,8 @@ Kto jest chętny?
             <th>Description</th>
         <tr>
             <c:forEach items="${TasksList}" var="todo">
-        <tr>
+        <tr <c:if test="${todo.done == true}">style="background: greenyellow" </c:if>>
+                <%--        <tr ${todo.done == true ? style="background: greenyellow": ""}>--%>
             <td><h6>${todo.id}</h6></td>
             <td><h6>${todo.title}</h6></td>
             <td><h6>${todo.category}</h6></td>
@@ -28,9 +29,12 @@ Kto jest chętny?
             <td><h6>${todo.deadlineDate}</h6></td>
             <td><h6>${todo.description}</h6></td>
             <td>
-                <form action="/markAsDone" method="POST">
-                    <button type="submit" class="btn btn-success" name="doneButton">Done
-                    </button>
+                <form action="/markAsDone" method="GET">
+                    <input type="hidden" name="id" value="${todo.id}">
+                    <c:if test="${todo.done == false}">
+                        <button type="submit" class="btn btn-success" name="doneButton">Done
+                        </button>
+                    </c:if>
                 </form>
             </td>
             <td>
@@ -40,7 +44,8 @@ Kto jest chętny?
                 </form>
             </td>
             <td>
-                <form action="/remove" method="POST">
+                <form action="/remove" method="GET">
+                    <input type="hidden" name="id" value="${todo.id}">
                     <button type="submit" class="btn btn-danger" name="removeButton">Remove
                     </button>
                 </form>
@@ -49,6 +54,34 @@ Kto jest chętny?
         </tr>
         </c:forEach>
     </table>
+
+
+
+    <form action="/save" method="POST">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" required/>
+        </div>
+        <div class="form-group">
+            <label>Categories</label>
+            <select>
+            <c:forEach items="${categories}" var="category">
+
+                    <option value="${category}">${category}</option>
+            </c:forEach>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="deadline">Deadline</label>
+            <input type="datetime-local" id="deadline" name="deadline" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" id="description" name="description" required>
+        </div>
+        <button type="submit" class="btn btn-success" name="saveButton">Save
+        </button>
+    </form>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/jquery.min.js"/>

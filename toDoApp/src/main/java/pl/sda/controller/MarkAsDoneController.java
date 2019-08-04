@@ -9,16 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/remove")
-public class RemoveToDoController extends HttpServlet {
+@WebServlet("/markAsDone")
+public class MarkAsDoneController extends HttpServlet {
     ToDoService toDoService = new ToDoService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String login = String.valueOf(req.getSession().getAttribute("login"));
-        String login="Unicorn";
+        String login = "Unicorn";
         long id = Long.parseLong(req.getParameter("id"));
-        toDoService.remove(login, id);
+        toDoService.markAsDone(login, id);
         resp.sendRedirect("/list");
+
     }
 }

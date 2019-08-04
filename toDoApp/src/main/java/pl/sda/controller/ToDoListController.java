@@ -1,5 +1,6 @@
 package pl.sda.controller;
 
+import pl.sda.model.Category;
 import pl.sda.model.ToDoModel;
 import pl.sda.service.ToDoService;
 
@@ -19,6 +20,7 @@ public class ToDoListController extends HttpServlet {
         String login = "Unicorn";
         ToDoService service = new ToDoService();
         List<ToDoModel> toDoModelList = service.getToDoList("Unicorn");
+        req.setAttribute("categories", Category.values());
         req.getSession().setAttribute("TasksList", toDoModelList);
         req.getRequestDispatcher("WEB-INF/views/to-do-home.jsp").forward(req,resp);
     }

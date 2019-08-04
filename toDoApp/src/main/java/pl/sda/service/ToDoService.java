@@ -13,11 +13,18 @@ public class ToDoService {
         toDoRepository.addToDoLit(login, toDoModel);
     }
 
+    public void markAsDone(String login, long id ){
+        toDoRepository.markAsDone(login, id);
+    }
+
     public List<ToDoModel> getToDoList(String login) {
         return toDoRepository.getToDoList(login);
     }
 
-    public void remove() {
-        toDoRepository.
+    public void remove(String login,long id) {
+        toDoRepository.removeFromToDoList(login, id);
+    }
+
+    public void save(ToDoModel model) {
     }
 }
