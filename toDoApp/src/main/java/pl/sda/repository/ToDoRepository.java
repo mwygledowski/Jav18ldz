@@ -15,22 +15,41 @@ public class ToDoRepository {
     }
 
     public void addToDoLit(String login, ToDoModel toDoModel) {
-        toDoMap.get(login).add(toDoModel);
+        if (toDoMap.get(login) != null) {
+            toDoMap.get(login).add(toDoModel);
+        }
+        else {
+           toDoMap.put(login, new ArrayList<>(Arrays.asList(toDoModel)));
+        }
     }
 
-    public void markAsDone (String login, long id){
+    public void markAsDone(String login, long id) {
         List<ToDoModel> toDoModelList = toDoMap.get(login);
         Optional<ToDoModel> model = toDoModelList.stream().filter(x -> x.getId() == id).findFirst();
-        if(model.isPresent()){
+        if (model.isPresent()) {
             model.get().setDone(true);
         }
-
     }
 
     public void removeFromToDoList(String login, long id) {
         List<ToDoModel> toDoModelList = toDoMap.get(login);
         ToDoModel model = toDoModelList.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
         toDoModelList.remove(model);
+    }
+
+    public ToDoModel getToDo(String login, long id) {
+        List<ToDoModel> toDoModelList = toDoMap.get(login);
+        ToDoModel model = toDoModelList.stream().filter(todo -> todo.getId() == id).findFirst().orElse(null);
+        return model;
+    }
+
+    public void editToDo(String login, long id, String newTitle, Category newCategory, LocalDateTime newDeadline, String newDescription) {
+        List<ToDoModel> toDoModelList = toDoMap.get(login);
+        ToDoModel model = toDoModelList.stream().filter(todo -> todo.getId() == id).findFirst().orElse(null);
+        model.setCategory(newCategory);
+        model.setTitle(newTitle);
+        model.setDeadlineDate(newDeadline);
+        model.setDescription(newDescription);
     }
 
     private static Map<String, List<ToDoModel>> loadMock() {
@@ -58,5 +77,4 @@ public class ToDoRepository {
 
         return result;
     }
-
 }

@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet ("/list")
+@WebServlet ("/to-do/list")
 public class ToDoListController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = "Unicorn";
+        String login =(String) req.getSession().getAttribute("login");
         ToDoService service = new ToDoService();
-        List<ToDoModel> toDoModelList = service.getToDoList("Unicorn");
+        List<ToDoModel> toDoModelList = service.getToDoList(login);
         req.setAttribute("categories", Category.values());
         req.getSession().setAttribute("TasksList", toDoModelList);
-        req.getRequestDispatcher("WEB-INF/views/to-do-home.jsp").forward(req,resp);
+        req.getRequestDispatcher("/WEB-INF/views/to-do-home.jsp").forward(req,resp);
     }
 }

@@ -1,17 +1,15 @@
 package pl.sda.service;
 
+import pl.sda.model.Category;
 import pl.sda.model.ToDoModel;
 import pl.sda.repository.ToDoRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ToDoService {
 
     private ToDoRepository toDoRepository = new ToDoRepository();
-
-    public void addToDo(String login, ToDoModel toDoModel) {
-        toDoRepository.addToDoLit(login, toDoModel);
-    }
 
     public void markAsDone(String login, long id ){
         toDoRepository.markAsDone(login, id);
@@ -25,6 +23,16 @@ public class ToDoService {
         toDoRepository.removeFromToDoList(login, id);
     }
 
-    public void save(ToDoModel model) {
+    public void save(String login , ToDoModel model) {
+        toDoRepository.addToDoLit(login, model);
+    }
+
+    public ToDoModel getToDo(String login, long id)
+    {
+        return toDoRepository.getToDo(login, id);
+    }
+
+    public void edit(String login, long id, String newTitle, Category newCategory, LocalDateTime newDeadline, String newDescription) {
+    toDoRepository.editToDo(login, id, newTitle, newCategory, newDeadline, newDescription);
     }
 }
